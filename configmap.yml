@@ -1,0 +1,9 @@
+# configmap.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  DB_SERVICE_NAME: mysql-service-1
+  DB_USER: root
+  DB_NAME: exampledb

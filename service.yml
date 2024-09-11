@@ -1,0 +1,13 @@
+# service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-app
+spec:
+  selector:
+    app: your-app
+  ports:
+    - protocol: TCP
+      port: 80
+      name: web
+      targetPort: 8080

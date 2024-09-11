@@ -1,0 +1,43 @@
+# deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: your-app
+          image: {imagen}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_SERVICE_NAME
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_NAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
